@@ -33,7 +33,6 @@ public class Restaurant {
 
     public Rating getRating() {return rating;}
 
-    @JsonProperty
     @JsonGetter("rating")
     public Float getRatingValue(){ return rating != null ? rating.getRatingValue() : null; }
 
