@@ -11,7 +11,10 @@ public class Restaurant {
     private @Id
     @GeneratedValue Long id;
     private String name;
-    private float rating;
+
+    @OneToOne(mappedBy = "restaurant", cascade = CascadeType.ALL)
+    private Rating rating;
+
     private boolean is_kosher;
     private @ElementCollection List<String> cuisines;
 
@@ -25,11 +28,11 @@ public class Restaurant {
         this.name = name;
     }
 
-    public float getRating() {
+    public Rating getRating() {
         return rating;
     }
 
-    public void setRating(float rating) {
+    public void setRating(Rating rating) {
         this.rating = rating;
     }
 

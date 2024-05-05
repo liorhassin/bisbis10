@@ -19,7 +19,7 @@ public class RatingController {
 
     @PostMapping
     ResponseEntity<?> updateRating(@RequestBody RatingDTO ratingDTO){
-        RatingService.updateRating(ratingDTO);
+        ratingService.updateRating(ratingDTO);
         return ResponseEntity.ok(null);
     }
 }
