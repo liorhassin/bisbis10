@@ -1,5 +1,8 @@
 package com.att.tdp.bisbis10.entities;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -11,6 +14,7 @@ public class Restaurant {
     private @Id @GeneratedValue Long id;
     private String name;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "restaurant", cascade = CascadeType.ALL)
     private Rating rating;
 
@@ -27,9 +31,11 @@ public class Restaurant {
         this.name = name;
     }
 
-    public Rating getRating() {
-        return rating;
-    }
+    public Rating getRating() {return rating;}
+
+    @JsonProperty
+    @JsonGetter("rating")
+    public Float getRatingValue(){ return rating != null ? rating.getRatingValue() : null; }
 
     public void setRating(Rating rating) {
         this.rating = rating;
