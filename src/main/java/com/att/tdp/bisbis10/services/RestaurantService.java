@@ -6,6 +6,8 @@ import com.att.tdp.bisbis10.repositories.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class RestaurantService {
 
@@ -14,6 +16,10 @@ public class RestaurantService {
 
     public void newRestaurant(RestaurantDTO restaurant){
         restaurantRepository.save(restaurantDtoToEntity(restaurant));
+    }
+
+    public Optional<Restaurant> getRestaurantById(Long id){
+        return restaurantRepository.findById(id);
     }
 
     private Restaurant restaurantDtoToEntity(RestaurantDTO restaurantDTO){

@@ -8,8 +8,7 @@ import java.util.List;
 @Entity
 public class Restaurant {
 
-    private @Id
-    @GeneratedValue Long id;
+    private @Id @GeneratedValue Long id;
     private String name;
 
     @OneToOne(mappedBy = "restaurant", cascade = CascadeType.ALL)
