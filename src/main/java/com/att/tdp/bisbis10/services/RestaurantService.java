@@ -6,6 +6,7 @@ import com.att.tdp.bisbis10.repositories.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,5 +29,26 @@ public class RestaurantService {
         restaurant.setIsKosher(restaurantDTO.isKosher());
         restaurant.setCuisines(restaurantDTO.cuisines());
         return restaurant;
+    }
+
+    public List<Restaurant> findRestaurantsByCuisine(String cuisine) {
+        return restaurantRepository.getRestaurantsByCuisine(cuisine);
+    }
+
+    public List<Restaurant> getAllRestaurants() {
+        return restaurantRepository.findAll();
+    }
+
+    public Restaurant editRestaurant(RestaurantDTO newRestaurant, Long id) {
+        return getRestaurantById(id).map(restaurant -> {
+            if(newRestaurant.name() != null) restaurant.setName(newRestaurant.name());
+            if(newRestaurant.isKosher() != restaurant.getIsKosher()) restaurant.setIsKosher(newRestaurant.isKosher());
+            if(newRestaurant.cuisines() != null) restaurant.setCuisines(newRestaurant.cuisines());
+            return restaurantRepository.save(restaurant);
+        }).orElse(null);
+    }
+
+    public void deleteRestaurant(Long id) {
+        restaurantRepository.deleteById(id);
     }
 }
