@@ -4,6 +4,7 @@ import com.att.tdp.bisbis10.dto.RestaurantDTO;
 import com.att.tdp.bisbis10.entities.Restaurant;
 import com.att.tdp.bisbis10.services.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,7 +60,7 @@ public class RestaurantController {
             restaurantService.deleteRestaurant(id);
             return ResponseEntity.noContent().build();
         }catch(Exception e){
-            return ResponseEntity.status(500).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 }

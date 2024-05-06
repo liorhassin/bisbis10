@@ -47,4 +47,8 @@ public class RestaurantService {
             return restaurantRepository.save(restaurant);
         }).orElse(null);
     }
+
+    public void deleteRestaurant(Long id) {
+        restaurantRepository.deleteById(id);
+    }
 }
