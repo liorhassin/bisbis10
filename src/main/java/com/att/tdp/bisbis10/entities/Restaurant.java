@@ -18,6 +18,9 @@ public class Restaurant {
     @OneToOne(mappedBy = "restaurant", cascade = CascadeType.ALL)
     private Rating rating;
 
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+    private List<Dish> dishes;
+
     private boolean is_kosher;
     private @ElementCollection List<String> cuisines;
 
