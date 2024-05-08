@@ -19,21 +19,21 @@ public class DishController {
     @PostMapping
     ResponseEntity<?> addDish(@PathVariable Long id, @RequestBody DishDTO dishDTO){
         Dish dish = dishService.addDish(dishDTO, id);
-        if(dish == null) return ResponseEntity.status(500).body(null);
+        if(dish == null) return ResponseEntity.badRequest().body("failed to create new dish");
         return ResponseEntity.status(201).body(null);
     }
 
     @PutMapping("/{dishId}")
     ResponseEntity<?> updateDish(@PathVariable Long dishId, @RequestBody DishDTO dishDTO){
         Dish dish = dishService.updateDish(dishDTO, dishId);
-        if(dish == null) return ResponseEntity.status(500).body(null);
+        if(dish == null) return ResponseEntity.badRequest().body("failed to update new dish");
         return ResponseEntity.ok(null);
     }
 
     @DeleteMapping("/{dishId}")
     ResponseEntity<?> deleteDish(@PathVariable Long dishId){
         dishService.deleteDish(dishId);
-        return ResponseEntity.status(204).body(null);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping
