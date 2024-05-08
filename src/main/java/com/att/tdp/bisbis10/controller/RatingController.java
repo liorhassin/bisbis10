@@ -2,7 +2,6 @@ package com.att.tdp.bisbis10.controller;
 
 import com.att.tdp.bisbis10.dto.RatingDTO;
 import com.att.tdp.bisbis10.services.RatingService;
-import com.att.tdp.bisbis10.services.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
