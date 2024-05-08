@@ -18,5 +18,19 @@ public class Orders {
     private Restaurant restaurant;
 
 
+    public UUID getId() {return id;}
 
+    public void setId(UUID id) {this.id = id;}
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
 }

@@ -45,6 +45,10 @@ public class DishService {
         return dishRepository.getDishesByRestaurantId(restaurantId);
     }
 
+    public Dish getDishById(Long dishId) {
+        return dishRepository.findById(dishId).orElse(null);
+    }
+
     private Dish dishDtoToEntity(DishDTO dto, Long restaurantId){
         Dish dish = new Dish();
         dish.setPrice(dto.price());
