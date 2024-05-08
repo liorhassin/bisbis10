@@ -19,10 +19,13 @@ public class DishService {
     @Autowired
     private DishRepository dishRepository;
 
-    //TODO - Add validation, can't add dish if restaurant id doesn't exist.
     public Dish addDish(DishDTO dto, Long restaurantId){
-        Dish dish = dishDtoToEntity(dto, restaurantId);
-        return dishRepository.save(dish);
+        Optional<Restaurant> restaurant = restaurantService.getRestaurantById(restaurantId);
+        if(restaurant.isPresent()){
+            Dish dish = dishDtoToEntity(dto, restaurantId);
+            return dishRepository.save(dish);
+        }
+        return null;
     }
 
     public Dish updateDish(DishDTO dto, Long dishId){
@@ -48,12 +51,8 @@ public class DishService {
         dish.setName(dto.name());
         dish.setDescription(dto.description());
 
-        //TODO - Check how orElse works instead of this code:
         Optional<Restaurant> restaurantOptional = restaurantService.getRestaurantById(restaurantId);
-        if(restaurantOptional.isPresent())
-            dish.setRestaurant(restaurantOptional.get());
-        else dish.setRestaurant(null);
-
+        dish.setRestaurant(restaurantOptional.orElse(null));
         return dish;
     }
 }

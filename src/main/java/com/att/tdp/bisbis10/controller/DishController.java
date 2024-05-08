@@ -16,7 +16,6 @@ public class DishController {
     @Autowired
     private DishService dishService;
 
-    //TODO - Add validation, can't add dish if restaurant id doesn't exist.
     @PostMapping
     ResponseEntity<?> addDish(@PathVariable Long id, @RequestBody DishDTO dishDTO){
         Dish dish = dishService.addDish(dishDTO, id);
