@@ -2,7 +2,6 @@ package com.att.tdp.bisbis10.entities;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -17,6 +16,9 @@ public class Restaurant {
     @JsonIgnore
     @OneToOne(mappedBy = "restaurant", cascade = CascadeType.ALL)
     private Rating rating;
+
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+    private List<Dish> dishes;
 
     private boolean is_kosher;
     private @ElementCollection List<String> cuisines;
