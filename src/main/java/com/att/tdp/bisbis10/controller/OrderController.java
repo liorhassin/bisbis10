@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.UUID;
-
 @RestController
 @RequestMapping("/order")
 public class OrderController {
@@ -22,7 +20,7 @@ public class OrderController {
     @PostMapping
     ResponseEntity<?> addOrder(@RequestBody OrderDTO orderDTO){
         Orders order = orderService.addOrder(orderDTO);
-        if(order == null) return ResponseEntity.badRequest().body("Failed to create new order");
+        if(order == null) return ResponseEntity.badRequest().body("failed to create new order");
         return ResponseEntity.ok().body(order.getId());
     }
 }
