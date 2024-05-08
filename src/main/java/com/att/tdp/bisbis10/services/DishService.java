@@ -7,6 +7,7 @@ import com.att.tdp.bisbis10.repositories.DishRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,6 +32,14 @@ public class DishService {
             if(dto.description() != null) dish.setDescription(dto.description());
             return dishRepository.save(dish);
         }).orElse(null);
+    }
+
+    public void deleteDish(Long dishId){
+        dishRepository.deleteById(dishId);
+    }
+
+    public List<Dish> getDishesByRestaurantId(Long restaurantId) {
+        return dishRepository.getDishesByRestaurantId(restaurantId);
     }
 
     private Dish dishDtoToEntity(DishDTO dto, Long restaurantId){

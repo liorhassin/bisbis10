@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/restaurants/{id}/dishes")
 public class DishController {
@@ -27,5 +29,16 @@ public class DishController {
         Dish dish = dishService.updateDish(dishDTO, dishId);
         if(dish == null) return ResponseEntity.status(500).body(null);
         return ResponseEntity.ok(null);
+    }
+
+    @DeleteMapping("/{dishId}")
+    ResponseEntity<?> deleteDish(@PathVariable Long dishId){
+        dishService.deleteDish(dishId);
+        return ResponseEntity.status(204).body(null);
+    }
+
+    @GetMapping
+    ResponseEntity<List<Dish>> getDishesByRestaurant(@PathVariable Long id){
+        return ResponseEntity.ok(dishService.getDishesByRestaurantId(id));
     }
 }
