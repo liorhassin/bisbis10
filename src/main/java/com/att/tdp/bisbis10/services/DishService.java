@@ -18,9 +18,19 @@ public class DishService {
     @Autowired
     private DishRepository dishRepository;
 
+    //TODO - Add validation, can't add dish if restaurant id doesn't exist.
     public Dish addDish(DishDTO dto, Long restaurantId){
         Dish dish = dishDtoToEntity(dto, restaurantId);
         return dishRepository.save(dish);
+    }
+
+    public Dish updateDish(DishDTO dto, Long dishId){
+        return dishRepository.findById(dishId).map(dish -> {
+            if(dto.name() != null) dish.setName(dto.name());
+            if(dto.price() != 0) dish.setPrice(dto.price());
+            if(dto.description() != null) dish.setDescription(dto.description());
+            return dishRepository.save(dish);
+        }).orElse(null);
     }
 
     private Dish dishDtoToEntity(DishDTO dto, Long restaurantId){
