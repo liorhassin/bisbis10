@@ -4,6 +4,7 @@ import com.att.tdp.bisbis10.dto.OrderDTO;
 import com.att.tdp.bisbis10.dto.OrderItemDTO;
 import com.att.tdp.bisbis10.entities.OrderItem;
 import com.att.tdp.bisbis10.entities.Orders;
+import com.att.tdp.bisbis10.entities.Restaurant;
 import com.att.tdp.bisbis10.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,9 +24,14 @@ public class OrderService {
     @Autowired
     private RestaurantService restaurantService;
 
+    //TODO - Make sure all validations are set before enabling the creation of new order.
     public Orders addOrder(OrderDTO orderDTO){
         Orders orders = new Orders();
-        orders.setRestaurant(restaurantService.getRestaurantById(orderDTO.restaurantId()).orElse(null));
+        Restaurant restaurant = restaurantService.getRestaurantById(orderDTO.restaurantId()).orElse(null);
+        if(restaurant == null){
+            return null;
+        }
+        orders.setRestaurant(restaurant);
         List<OrderItem> orderItems = new ArrayList<>();
         orderDTO.orderItems().forEach(orderItemDto -> {
             OrderItem orderItem = orderItemDtoToEntity(orderItemDto);
