@@ -15,5 +15,8 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-
+    @PostMapping
+    ResponseEntity<?> addOrder(@RequestBody OrderDTO order){
+        return ResponseEntity.ok(orderService.addOrder(order).getId());
+    }
 }
