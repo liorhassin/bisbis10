@@ -51,7 +51,7 @@ public class RestaurantController {
         if(restaurant.isPresent())
             return ResponseEntity.ok(restaurantService.editRestaurant(newRestaurant, id));
         else
-            return ResponseEntity.badRequest().body("Restaurant is not found in database with given id");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Restaurant is not found in database with given id");
     }
 
     @DeleteMapping("/{id}")

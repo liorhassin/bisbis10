@@ -4,6 +4,7 @@ import com.att.tdp.bisbis10.dto.DishDTO;
 import com.att.tdp.bisbis10.entities.Dish;
 import com.att.tdp.bisbis10.services.DishService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,14 +20,14 @@ public class DishController {
     @PostMapping
     ResponseEntity<?> addDish(@PathVariable Long id, @RequestBody DishDTO dishDTO){
         Dish dish = dishService.addDish(dishDTO, id);
-        if(dish == null) return ResponseEntity.badRequest().body("failed to create new dish");
+        if(dish == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("failed to create new dish");
         return ResponseEntity.status(201).body(null);
     }
 
     @PutMapping("/{dishId}")
     ResponseEntity<?> updateDish(@PathVariable Long dishId, @RequestBody DishDTO dishDTO){
         Dish dish = dishService.updateDish(dishDTO, dishId);
-        if(dish == null) return ResponseEntity.badRequest().body("failed to update new dish");
+        if(dish == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("failed to update new dish");
         return ResponseEntity.ok(null);
     }
 
