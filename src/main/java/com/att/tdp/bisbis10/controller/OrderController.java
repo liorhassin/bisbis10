@@ -20,8 +20,8 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping
-    ResponseEntity<?> addOrder(@RequestBody OrderDTO orderDto){
-        Orders order = orderService.addOrder(orderDto);
+    ResponseEntity<?> addOrder(@RequestBody OrderDTO orderDTO){
+        Orders order = orderService.addOrder(orderDTO);
         if(order == null) return ResponseEntity.badRequest().body("Failed to create new order");
         return ResponseEntity.ok().body(order.getId());
     }

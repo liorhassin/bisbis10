@@ -24,7 +24,6 @@ public class OrderService {
     @Autowired
     private RestaurantService restaurantService;
 
-    //TODO - Make sure all validations are set before enabling the creation of new order.
     public Orders addOrder(OrderDTO orderDTO){
         Orders orders = new Orders();
         Restaurant restaurant = restaurantService.getRestaurantById(orderDTO.restaurantId()).orElse(null);
