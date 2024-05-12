@@ -31,12 +31,17 @@ public class RestaurantService {
         return restaurant;
     }
 
-    public List<Restaurant> findRestaurantsByCuisine(String cuisine) {
+    public List<RestaurantDTO> findRestaurantsByCuisine(String cuisine) {
         return restaurantRepository.getRestaurantsByCuisine(cuisine);
     }
 
-    public List<Restaurant> getAllRestaurants() {
-        return restaurantRepository.findAll();
+    public List<RestaurantDTO> getAllRestaurants() {
+        List<Restaurant> restaurants = restaurantRepository.findAll();
+
+        return restaurants.stream().map(restaurant ->
+                new RestaurantDTO(restaurant.getId(), restaurant.getName(),
+                        restaurant.getAverageRatingValue(), restaurant.getIsKosher(),
+                        restaurant.getCuisines())).toList();
     }
 
     public Restaurant editRestaurant(RestaurantDTO newRestaurant, Long id) {

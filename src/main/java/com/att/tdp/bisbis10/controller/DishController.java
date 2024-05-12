@@ -38,7 +38,7 @@ public class DishController {
     }
 
     @GetMapping
-    ResponseEntity<List<Dish>> getDishesByRestaurant(@PathVariable Long id){
+    ResponseEntity<List<Dish>> getDishesByRestaurantId(@PathVariable Long id){
         return ResponseEntity.ok(dishService.getDishesByRestaurantId(id));
     }
 }

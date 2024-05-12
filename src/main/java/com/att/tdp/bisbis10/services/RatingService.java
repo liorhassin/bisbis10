@@ -6,7 +6,6 @@ import com.att.tdp.bisbis10.entities.Restaurant;
 import com.att.tdp.bisbis10.repositories.RatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Optional;
 
@@ -18,17 +17,8 @@ public class RatingService {
     @Autowired
     private RestaurantService restaurantService;
 
-    public void updateRating(RatingDTO ratingDTO) {
-        Optional<Rating> ratingOptional = ratingRepository.findByRestaurantId(ratingDTO.restaurantId());
-        Rating rating;
-        if(ratingOptional.isPresent()){
-            rating = ratingOptional.get();
-            rating.setRatingValue(ratingDTO.rating());
-        }
-        else {
-            rating = ratingDtoToEntity(ratingDTO);
-        }
-        ratingRepository.save(rating);
+    public void addRating(RatingDTO ratingDTO) {
+        ratingRepository.save(ratingDtoToEntity(ratingDTO));
     }
 
     private Rating ratingDtoToEntity(RatingDTO ratingDTO){
