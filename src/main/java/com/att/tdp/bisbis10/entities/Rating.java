@@ -8,7 +8,7 @@ public class Rating {
     private @Id @GeneratedValue Long id;
     private float rating;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "restaurantId", nullable = false, referencedColumnName = "id")
     @JsonIgnore
     private Restaurant restaurant;

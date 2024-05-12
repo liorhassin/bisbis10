@@ -17,17 +17,8 @@ public class RatingService {
     @Autowired
     private RestaurantService restaurantService;
 
-    public void updateRating(RatingDTO ratingDTO) {
-        Optional<Rating> ratingOptional = ratingRepository.findByRestaurantId(ratingDTO.restaurantId());
-        Rating rating;
-        if(ratingOptional.isPresent()){
-            rating = ratingOptional.get();
-            rating.setRatingValue(ratingDTO.rating());
-        }
-        else {
-            rating = ratingDtoToEntity(ratingDTO);
-        }
-        ratingRepository.save(rating);
+    public void addRating(RatingDTO ratingDTO) {
+        ratingRepository.save(ratingDtoToEntity(ratingDTO));
     }
 
     private Rating ratingDtoToEntity(RatingDTO ratingDTO){

@@ -14,8 +14,8 @@ public class Restaurant {
     private String name;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "restaurant", cascade = CascadeType.ALL)
-    private Rating rating;
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+    private List<Rating> ratings;
 
 
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
@@ -34,13 +34,17 @@ public class Restaurant {
         this.name = name;
     }
 
-    public Rating getRating() {return rating;}
-
-    @JsonGetter("rating")
-    public Float getRatingValue(){ return rating != null ? rating.getRatingValue() : null; }
-
-    public void setRating(Rating rating) {
-        this.rating = rating;
+    @JsonGetter("averageRating")
+    public Float getAverageRatingValue(){
+        float value = 0f;
+        if(ratings != null && !ratings.isEmpty()){
+            int ratingLength = ratings.toArray().length;
+            for(int i = 0; i < ratingLength; i++){
+                value += ratings.get(i).getRatingValue();
+            }
+            value = value/ratingLength;
+        }
+        return Math.round(value * 100.0)/100.0f;
     }
 
     public boolean getIsKosher() {

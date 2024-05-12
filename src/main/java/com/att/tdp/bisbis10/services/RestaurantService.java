@@ -40,7 +40,7 @@ public class RestaurantService {
 
         return restaurants.stream().map(restaurant ->
                 new RestaurantDTO(restaurant.getId(), restaurant.getName(),
-                        restaurant.getRatingValue(), restaurant.getIsKosher(),
+                        restaurant.getAverageRatingValue(), restaurant.getIsKosher(),
                         restaurant.getCuisines())).toList();
     }
 
