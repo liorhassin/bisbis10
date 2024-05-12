@@ -22,7 +22,7 @@ public class RestaurantController {
     ResponseEntity<Restaurant> getRestaurantById(@PathVariable Long id){
         return restaurantService.getRestaurantById(id)
                 .map(restaurant -> ResponseEntity.ok().body(restaurant))
-                .orElse(ResponseEntity.noContent().build());
+                .orElse(ResponseEntity.ok().body(null));
     }
 
     @GetMapping()
@@ -45,13 +45,13 @@ public class RestaurantController {
     @PutMapping("/{id}")
     ResponseEntity<?> editRestaurant(@RequestBody RestaurantDTO newRestaurant, @PathVariable Long id){
         if(newRestaurant == null){
-            return ResponseEntity.badRequest().body("Restaurant data is missing");
+            return ResponseEntity.ok().body("Restaurant data is missing");
         }
         Optional<Restaurant> restaurant = restaurantService.getRestaurantById(id);
         if(restaurant.isPresent())
             return ResponseEntity.ok(restaurantService.editRestaurant(newRestaurant, id));
         else
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Restaurant is not found in database with given id");
+            return ResponseEntity.ok().body("Restaurant is not found in database with given id");
     }
 
     @DeleteMapping("/{id}")
@@ -60,7 +60,7 @@ public class RestaurantController {
             restaurantService.deleteRestaurant(id);
             return ResponseEntity.noContent().build();
         }catch(Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            return ResponseEntity.internalServerError().build();
         }
     }
 }
