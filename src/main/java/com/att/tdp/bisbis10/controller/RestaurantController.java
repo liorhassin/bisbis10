@@ -26,8 +26,8 @@ public class RestaurantController {
     }
 
     @GetMapping()
-    ResponseEntity<List<Restaurant>> getAllRestaurants(@RequestParam(name = "cuisine", required = false) Optional<String> cuisine){
-        ResponseEntity<List<Restaurant>> responseEntity;
+    ResponseEntity<List<RestaurantDTO>> getAllRestaurants(@RequestParam(name = "cuisine", required = false) Optional<String> cuisine){
+        ResponseEntity<List<RestaurantDTO>> responseEntity;
         if(cuisine.isPresent() && !cuisine.get().isEmpty()){
             responseEntity = ResponseEntity.ok(restaurantService.findRestaurantsByCuisine(cuisine.get()));
         }else{

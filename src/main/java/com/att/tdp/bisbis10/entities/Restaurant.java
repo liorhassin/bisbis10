@@ -17,6 +17,7 @@ public class Restaurant {
     @OneToOne(mappedBy = "restaurant", cascade = CascadeType.ALL)
     private Rating rating;
 
+
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
     private List<Dish> dishes;
 
@@ -66,4 +67,7 @@ public class Restaurant {
         return id;
     }
 
+    public List<Dish> getDishes() {return dishes;}
+
+    public void setDishes(List<Dish> dishes) {this.dishes = dishes;}
 }

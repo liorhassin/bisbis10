@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/order")
 public class OrderController {
@@ -22,6 +24,6 @@ public class OrderController {
     ResponseEntity<?> addOrder(@RequestBody OrderDTO orderDTO){
         Orders order = orderService.addOrder(orderDTO);
         if(order == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("failed to create new order");
-        return ResponseEntity.ok().body(order.getId());
+        return ResponseEntity.ok().body(Map.of("orderId", order.getId()));
     }
 }
